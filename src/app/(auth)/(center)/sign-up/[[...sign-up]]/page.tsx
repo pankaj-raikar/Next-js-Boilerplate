@@ -3,8 +3,8 @@ import { SignUp } from '@clerk/nextjs';
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: 'meta_title',
-    description: 'meta_description',
+    title: 'Sign Up',
+    description: 'Create your account to get started',
   };
 }
 

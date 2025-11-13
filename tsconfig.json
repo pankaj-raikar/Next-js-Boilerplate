@@ -67,7 +67,7 @@
     // Next.js Project Configuration
     // Controls settings specific to Next.js framework
     // ======================================================================
-    "jsx": "preserve", // Uses the React automatic runtime
+    "jsx": "preserve", // JSX is preserved for Next.js to transform
     "incremental": true, // Enable faster incremental builds
     "noEmit": true, // Skip emitting files (Next.js handles this)
     "plugins": [

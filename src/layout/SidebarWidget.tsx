@@ -15,7 +15,7 @@ export default function SidebarWidget() {
       <a
         href="https://tailadmin.com/pricing"
         target="_blank"
-        rel="nofollow"
+        rel="nofollow noopener noreferrer"
         className="flex items-center justify-center rounded-lg bg-brand-500 p-3 text-theme-sm font-medium text-white hover:bg-brand-600"
       >
         Upgrade To Pro

@@ -7,6 +7,7 @@ const Backdrop: React.FC = () => {
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter' || e.key === ' ' || e.key === 'Escape') {
+      e.preventDefault();
       toggleMobileSidebar();
     }
   };

@@ -3,7 +3,7 @@ import { UserProfile } from '@clerk/nextjs';
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: 'meta_title',
+    title: 'User Profile',
   };
 }
 

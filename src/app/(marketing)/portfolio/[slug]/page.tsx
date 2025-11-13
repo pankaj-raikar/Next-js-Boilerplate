@@ -23,10 +23,12 @@ export default async function PortfolioDetail(props: PortfolioPageProps) {
     <>
       <h1 className="capitalize">
         Portfolio -
+        {' '}
         {slug}
       </h1>
       <p>
         Portfolio -
+        {' '}
         {slug}
       </p>
 

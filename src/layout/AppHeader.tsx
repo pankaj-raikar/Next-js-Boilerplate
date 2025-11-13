@@ -7,13 +7,16 @@ import NotificationDropdown from '@/components/admin-ui-ref/header/NotificationD
 import UserDropdown from '@/components/admin-ui-ref/header/UserDropdown';
 import { useSidebar } from '@/context/SidebarContext';
 
+const DESKTOP_BREAKPOINT = 1024;
+
 const AppHeader: React.FC = () => {
   const [isApplicationMenuOpen, setApplicationMenuOpen] = useState(false);
+  const [isDesktop, setIsDesktop] = useState(false);
 
   const { isMobileOpen, toggleSidebar, toggleMobileSidebar } = useSidebar();
 
   const handleToggle = () => {
-    if (window.innerWidth >= 1024) {
+    if (isDesktop) {
       toggleSidebar();
     } else {
       toggleMobileSidebar();
@@ -24,6 +27,22 @@ const AppHeader: React.FC = () => {
     setApplicationMenuOpen(!isApplicationMenuOpen);
   };
   const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    const onResize = () => {
+      if (typeof window === 'undefined') {
+        return;
+      }
+      setIsDesktop(window.innerWidth >= DESKTOP_BREAKPOINT);
+    };
+
+    onResize();
+    window.addEventListener('resize', onResize);
+
+    return () => {
+      window.removeEventListener('resize', onResize);
+    };
+  }, []);
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {

@@ -4,11 +4,9 @@ const useGoBack = () => {
   const router = useRouter();
 
   const goBack = () => {
-    if (window.history.length > 1) {
-      router.back(); // Navigate to the previous route
-    } else {
-      router.push('/'); // Redirect to home if no history exists
-    }
+    // Simply use router.back() - Next.js router handles the navigation safely
+    // If there's no history, the user stays on the current page
+    router.back();
   };
 
   return goBack;
