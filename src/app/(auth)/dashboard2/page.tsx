@@ -155,7 +155,7 @@ const upcomingEvent = {
 };
 
 export const metadata: Metadata = {
-  title: 'SaaS Productivity Dashboard | Next.js Boilerplate',
+  title: 'SaaS Productivity Dashboard | Next.js Boilerplatee',
   description:
     'A focused SaaS workspace view with tasks, projects, calendar, and reminders that keeps the default sidebar intact.',
 };
