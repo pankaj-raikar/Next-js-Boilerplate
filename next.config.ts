@@ -1,7 +1,6 @@
 import type { NextConfig } from 'next';
 import withBundleAnalyzer from '@next/bundle-analyzer';
 import { withSentryConfig } from '@sentry/nextjs';
-import createNextIntlPlugin from 'next-intl/plugin';
 import './src/libs/Env';
 
 // Define the base Next.js configuration
@@ -11,17 +10,39 @@ const baseConfig: NextConfig = {
   },
   poweredByHeader: false,
   reactStrictMode: true,
-  reactCompiler: true,
   outputFileTracingIncludes: {
     '/': ['./migrations/**/*'],
   },
-  experimental: {
-    turbopackFileSystemCacheForDev: true,
+  webpack(config) {
+    // Grab the existing rule that handles SVG imports
+    const fileLoaderRule = config.module.rules.find((rule: any) =>
+      rule.test?.test?.('.svg'),
+    );
+
+    config.module.rules.push(
+      // Reapply the existing rule, but only for svg imports ending in ?url
+      {
+        ...fileLoaderRule,
+        test: /\.svg$/i,
+        resourceQuery: /url/, // *.svg?url
+      },
+      // Convert all other *.svg imports to React components
+      {
+        test: /\.svg$/i,
+        issuer: fileLoaderRule.issuer,
+        resourceQuery: { not: [...fileLoaderRule.resourceQuery.not, /url/] }, // exclude if *.svg?url
+        use: ['@svgr/webpack'],
+      },
+    );
+
+    // Modify the file loader rule to ignore *.svg, since we have it handled now.
+    fileLoaderRule.exclude = /\.svg$/i;
+
+    return config;
   },
 };
 
-// Initialize the Next-Intl plugin
-let configWithPlugins = createNextIntlPlugin('./src/libs/I18n.ts')(baseConfig);
+let configWithPlugins = baseConfig;
 
 // Conditionally enable bundle analysis
 if (process.env.ANALYZE === 'true') {
